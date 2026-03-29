@@ -1,0 +1,6 @@
+node_modules/
+results/
+.firecrawl/
+
+*.tsbuildinfo
+.DS_Store
