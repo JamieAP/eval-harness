@@ -4,9 +4,8 @@
  * Each strategy takes recap-quality session entries and produces a markdown
  * document that becomes the system prompt (the "context" the agent sees).
  *
- * Session entries are LLM-summarized
- * into (focus, done) pairs per session. Strategies differ in selection
- * and organization, not in information quality.
+ * The bundled entries are synthetic. Strategies differ in selection
+ * and organization; custom entries must be reviewed before sharing.
  */
 
 export interface SessionEntry {
@@ -140,11 +139,11 @@ export const cold: ContextStrategy = {
 };
 
 // ---- Strategy: compacted ----
-// Pre-computed recap summary
+// A caller-provided pre-computed summary.
 export function compacted(recapOutput: string): ContextStrategy {
   return {
     name: "recap",
-    description: "Pre-computed recap output",
+    description: "Pre-computed summary supplied by the caller",
     apply() {
       return `# Session Recap\n\n${recapOutput}`;
     },

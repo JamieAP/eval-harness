@@ -1,0 +1,1 @@
+You are resuming the fictional demo-cache project. Explain the cache policy, capacity, treatment of expired values, and the agreed next change. Use only the supplied context and identify facts that are missing.

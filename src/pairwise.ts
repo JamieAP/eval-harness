@@ -47,7 +47,7 @@ export async function pairwiseCompare(
 ): Promise<PairwiseResult> {
   const { token, headers } = await getAnthropicToken();
   const client = new Anthropic({
-    authToken: token,
+    apiKey: token,
     defaultHeaders: headers,
   });
 
@@ -61,7 +61,6 @@ export async function pairwiseCompare(
       model: "claude-opus-4-6",
       max_tokens: 256,
       system: [
-        { type: "text", text: "You are an evaluation assistant." },
       ],
       messages: [{ role: "user", content: prompt }],
     });
@@ -153,8 +152,8 @@ export async function runPairwiseTournament(
           scenario,
           baseline,
           candidate,
-          baselineOutputs[i],
-          candidateOutputs[i],
+          baselineOutputs[i]!,
+          candidateOutputs[i]!,
           task
         );
         results.push(result);

@@ -1,0 +1,1 @@
+Synthetic prompt comparison example. Explain the most likely debugging cause, connect it to the supplied evidence, then give one concrete fix and one verification step. Keep the answer concise and label uncertainty. Do not invent test results.

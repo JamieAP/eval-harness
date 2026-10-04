@@ -14,6 +14,7 @@ export interface GradeResult {
   emdash_count?: number;
   doubledash_count?: number;
   total: number;
+  score?: number;
   notes: string;
 }
 
@@ -45,7 +46,7 @@ export async function gradeOutput(config: GradeConfig): Promise<GradeResult> {
 
   const { token, headers } = await getAnthropicToken();
   const client = new Anthropic({
-    authToken: token,
+    apiKey: token,
     defaultHeaders: headers,
   });
 
@@ -53,7 +54,6 @@ export async function gradeOutput(config: GradeConfig): Promise<GradeResult> {
     model: config.judgeModel,
     max_tokens: 1024,
     system: [
-      { type: "text", text: "You are an evaluation assistant." },
     ],
     messages: [{ role: "user", content: prompt }],
   });
@@ -100,7 +100,7 @@ export async function gradeWithMultipleJudges(
   const median = (arr: number[]) => {
     const sorted = [...arr].sort((a, b) => a - b);
     const mid = Math.floor(sorted.length / 2);
-    return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+    return sorted.length % 2 ? sorted[mid]! : (sorted[mid - 1]! + sorted[mid]!) / 2;
   };
 
   // Get all numeric keys from first grade

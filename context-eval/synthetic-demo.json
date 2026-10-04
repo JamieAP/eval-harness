@@ -1,0 +1,16 @@
+{
+  "id": "demo-cache",
+  "synthetic": true,
+  "task": "You are resuming the fictional demo-cache project. Explain the cache policy, capacity, treatment of expired values, and the agreed next change. Use only the supplied context and identify facts that are missing.",
+  "groundTruth": "The cache is an in-process bounded LRU cache with a capacity of 64 entries. TTL is 30 seconds. Expired values are removed on lookup; misses do not extend their TTL. The agreed next change is a deterministic clock in expiry tests. No distributed cache or persistence was selected.",
+  "recap": "Fictional demo-cache: bounded in-process LRU, 64 entries, 30 second TTL. Lookup removes expired values; misses do not extend TTL. Next: inject a deterministic clock into expiry tests.",
+  "memory": "This is an invented project. The cache is a bounded LRU with 64 entries and a 30 second TTL. Remove expired values on lookup, never refresh expiry on a miss. Inject a deterministic test clock next; distributed caching and persistence remain out of scope.",
+  "entries": [
+    {"timestamp":"2025-01-01T09:00:00Z","project":"demo-cache","focus":"Choose a local cache policy","done":"Selected an in-process bounded LRU cache; persistence and distributed caching are out of scope.","files":["src/cache.ts"]},
+    {"timestamp":"2025-01-02T09:00:00Z","project":"demo-cache","focus":"Choose capacity","done":"Set the maximum capacity to 64 entries; evict the least recently used item on overflow.","files":["src/cache.ts","tests/cache.test.ts"]},
+    {"timestamp":"2025-01-03T09:00:00Z","project":"demo-cache","focus":"Define expiry","done":"Set TTL to 30 seconds and remove expired values on lookup.","files":["src/cache.ts"]},
+    {"timestamp":"2025-01-04T09:00:00Z","project":"demo-cache","focus":"Check miss semantics","done":"Confirmed a cache miss must not extend TTL; added a failing expiry test.","files":["tests/cache.test.ts"]},
+    {"timestamp":"2025-01-05T09:00:00Z","project":"demo-cache","focus":"Make expiry tests deterministic","done":"Agreed to inject a deterministic clock next; implementation remains pending.","files":["tests/cache.test.ts"]},
+    {"timestamp":"2025-01-06T09:00:00Z","project":"demo-docs","focus":"Add a usage example","done":"Drafted a fictional cache usage example; it does not change cache design decisions.","files":["README.md"]}
+  ]
+}

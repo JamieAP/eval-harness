@@ -51,7 +51,7 @@ async function gradeOne(
 
   const { token, headers } = await getAnthropicToken();
   const client = new Anthropic({
-    authToken: token,
+    apiKey: token,
     defaultHeaders: headers,
   });
 
@@ -59,10 +59,6 @@ async function gradeOne(
     model,
     max_tokens: 1024,
     system: [
-      {
-        type: "text",
-        text: "You are an evaluation assistant.",
-      },
       {
         type: "text",
         text: "You are a blind grader. You do not know which context strategy produced the output. Respond with ONLY valid JSON.",
@@ -114,7 +110,7 @@ for (const variant of variants) {
   // Extract case ID from variant name: ctx-<case>-<strategy>
   const match = variant.match(/^ctx-(.+?)-(full|ring-\d+|map-only|log-map-\d+|cold|recap|memory)$/);
   if (!match) continue;
-  const caseId = match[1];
+  const caseId = match[1]!;
 
   if (caseFilter && caseId !== caseFilter) continue;
 

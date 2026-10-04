@@ -1,11 +1,9 @@
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
-async function getOpenRouterKey(): Promise<string> {
-  const proc = Bun.spawn(["example-secret-helper", "get", "OPENROUTER_API_KEY"], {
-    stdout: "pipe",
-  });
-  const text = await new Response(proc.stdout).text();
-  return text.trim();
+export async function getOpenRouterKey(): Promise<string> {
+  const key = process.env.OPENROUTER_API_KEY?.trim();
+  if (!key) throw new Error("OPENROUTER_API_KEY must be set");
+  return key;
 }
 
 export interface JudgeResult {
@@ -36,12 +34,6 @@ export const JUDGE_PANEL = {
   ],
 };
 
-let _cachedKey: string | null = null;
-async function getCachedKey(): Promise<string> {
-  if (!_cachedKey) _cachedKey = await getOpenRouterKey();
-  return _cachedKey;
-}
-
 async function fetchWithRetry(
   url: string,
   opts: RequestInit,
@@ -64,7 +56,7 @@ export async function callJudge(
   model: string,
   rubricPrompt: string
 ): Promise<JudgeResult> {
-  const apiKey = await getCachedKey();
+  const apiKey = await getOpenRouterKey();
   const start = performance.now();
 
   try {
@@ -125,7 +117,7 @@ export async function callJudge(
 
     return {
       model,
-      scores: Object.fromEntries(numericKeys),
+      scores: Object.fromEntries(numericKeys.map(([key, value]) => [key, Number(value)])),
       total,
       notes: parsed.notes ?? "",
       raw: text.slice(0, 1000),

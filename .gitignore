@@ -4,3 +4,9 @@ results/
 
 *.tsbuildinfo
 .DS_Store
+
+# Private inputs, provider keys, and local evaluation outputs
+private-corpora/
+.env
+.env.*
+!.env.example

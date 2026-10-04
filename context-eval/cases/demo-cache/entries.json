@@ -1,0 +1,57 @@
+[
+  {
+    "timestamp": "2025-01-01T09:00:00Z",
+    "project": "demo-cache",
+    "focus": "Choose a local cache policy",
+    "done": "Selected an in-process bounded LRU cache; persistence and distributed caching are out of scope.",
+    "files": [
+      "src/cache.ts"
+    ]
+  },
+  {
+    "timestamp": "2025-01-02T09:00:00Z",
+    "project": "demo-cache",
+    "focus": "Choose capacity",
+    "done": "Set the maximum capacity to 64 entries; evict the least recently used item on overflow.",
+    "files": [
+      "src/cache.ts",
+      "tests/cache.test.ts"
+    ]
+  },
+  {
+    "timestamp": "2025-01-03T09:00:00Z",
+    "project": "demo-cache",
+    "focus": "Define expiry",
+    "done": "Set TTL to 30 seconds and remove expired values on lookup.",
+    "files": [
+      "src/cache.ts"
+    ]
+  },
+  {
+    "timestamp": "2025-01-04T09:00:00Z",
+    "project": "demo-cache",
+    "focus": "Check miss semantics",
+    "done": "Confirmed a cache miss must not extend TTL; added a failing expiry test.",
+    "files": [
+      "tests/cache.test.ts"
+    ]
+  },
+  {
+    "timestamp": "2025-01-05T09:00:00Z",
+    "project": "demo-cache",
+    "focus": "Make expiry tests deterministic",
+    "done": "Agreed to inject a deterministic clock next; implementation remains pending.",
+    "files": [
+      "tests/cache.test.ts"
+    ]
+  },
+  {
+    "timestamp": "2025-01-06T09:00:00Z",
+    "project": "demo-docs",
+    "focus": "Add a usage example",
+    "done": "Drafted a fictional cache usage example; it does not change cache design decisions.",
+    "files": [
+      "README.md"
+    ]
+  }
+]

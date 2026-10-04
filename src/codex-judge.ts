@@ -55,7 +55,7 @@ export async function gradeWithCodex(
 
   return {
     model: "gpt-5.4-xhigh",
-    scores: Object.fromEntries(boolKeys),
+    scores: Object.fromEntries(boolKeys.map(([key, value]) => [key, value === true])),
     score,
     notes: parsed.notes ?? "",
     durationMs,

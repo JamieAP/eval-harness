@@ -40,22 +40,21 @@ export async function runTrial(config: RunConfig): Promise<RunResult> {
   const prompt = `${scenarioText}`;
   const systemPrompt = skillText;
 
-  // Read a configured provider token.
+  // Read an explicit provider API key.
   const { token, headers } = await getAnthropicToken();
 
   const client = new Anthropic({
-    authToken: token,
+    apiKey: token,
     defaultHeaders: headers,
   });
 
   const start = performance.now();
 
-  // Send system-prompt content blocks.
+  // Send the selected context as the system prompt.
   const response = await client.messages.create({
     model: config.model,
     max_tokens: 4096,
     system: [
-      { type: "text", text: "You are an evaluation assistant." },
       { type: "text", text: systemPrompt },
     ],
     messages: [{ role: "user", content: prompt }],

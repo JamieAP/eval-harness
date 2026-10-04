@@ -1,0 +1,3 @@
+Synthetic example; all events and decisions are invented.
+
+This is an invented project. The cache is a bounded LRU with 64 entries and a 30 second TTL. Remove expired values on lookup, never refresh expiry on a miss. Inject a deterministic test clock next; distributed caching and persistence remain out of scope.

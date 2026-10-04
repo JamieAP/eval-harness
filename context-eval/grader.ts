@@ -35,8 +35,8 @@ export async function gradeContextOutput(
 ): Promise<ContextGradeResult> {
   const outputDir = join(
     config.resultsDir,
-    `context-${config.caseId}-${config.strategy}`,
-    `context-${config.caseId}`,
+    `ctx-${config.caseId}-${config.strategy}`,
+    `ctx-${config.caseId}`,
     config.runId
   );
   const output = await readFile(join(outputDir, "output.md"), "utf-8");
@@ -69,7 +69,7 @@ export async function gradeContextOutput(
 
   const { token, headers } = await getAnthropicToken();
   const client = new Anthropic({
-    authToken: token,
+    apiKey: token,
     defaultHeaders: headers,
   });
 

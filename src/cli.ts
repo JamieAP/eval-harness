@@ -283,7 +283,7 @@ program
 program
   .command("pairwise")
   .description("Run pairwise Opus tournament: each variant vs baseline")
-  .option("-b, --baseline <variant>", "baseline variant", "debug-original")
+  .option("-b, --baseline <variant>", "baseline variant", "debug-baseline")
   .option("--variants <list>", "comma-separated candidate variants")
   .option("--scenarios <list>", "comma-separated scenarios", "pod-crash,flaky-ci")
   .action(async (opts) => {
@@ -312,10 +312,10 @@ program
     for (const r of results) {
       const cand = r.variantA === opts.baseline ? r.variantB : r.variantA;
       if (!wins[cand]) { wins[cand] = 0; losses[cand] = 0; ties[cand] = 0; inconsistencies[cand] = 0; }
-      if (!r.consistent) { inconsistencies[cand]++; }
-      else if (r.finalWinner === cand) { wins[cand]++; }
-      else if (r.finalWinner === opts.baseline) { losses[cand]++; }
-      else { ties[cand]++; }
+      if (!r.consistent) { inconsistencies[cand] = (inconsistencies[cand] ?? 0) + 1; }
+      else if (r.finalWinner === cand) { wins[cand] = (wins[cand] ?? 0) + 1; }
+      else if (r.finalWinner === opts.baseline) { losses[cand] = (losses[cand] ?? 0) + 1; }
+      else { ties[cand] = (ties[cand] ?? 0) + 1; }
     }
 
     console.log("\n=== Pairwise Results vs " + opts.baseline + " ===");
@@ -413,7 +413,7 @@ program
       console.log("-".repeat(83));
 
       for (const [key, runs] of [...groups.entries()].sort()) {
-        const [variant, scenario] = key.split("|");
+        const [variant = "", scenario = ""] = key.split("|");
         const n = runs.length;
         const avg = (field: string) => {
           const vals = runs.map((r) => r[field]).filter((v) => typeof v === "number");

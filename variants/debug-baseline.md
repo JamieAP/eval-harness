@@ -1,0 +1,1 @@
+Synthetic prompt comparison example. Investigate the supplied debugging scenario. State the evidence, likely cause, a concrete fix, and a useful verification step. Do not claim to have run commands or seen evidence beyond the prompt.
